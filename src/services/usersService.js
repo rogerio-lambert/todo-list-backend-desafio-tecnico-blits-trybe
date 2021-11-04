@@ -64,9 +64,8 @@ const login = async (email, passwordLogin) => {
 //---------------------------------------------/---------------------------------------------------------------//
 
 const create = async (name, email, password) => {
-  const { name, email, password } = req.body;
-  const result = await usersService.create(name, email, password);
-  return res.status(result.status).json(result.response);
+  const newUser = await usersModel.create(name, email, password);
+  return newUser;
 };
 
 //---------------------------------------------/---------------------------------------------------------------//
