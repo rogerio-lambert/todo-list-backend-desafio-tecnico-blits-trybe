@@ -1,5 +1,7 @@
 const usersService = require('../services/usersService.js')
 
+//---------------------------------------------/---------------------------------------------------------------//
+
 const login = async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
@@ -8,6 +10,8 @@ const login = async (req, res) => {
   const { status, response } = await userService.login(email, password);
   return res.status(status).json(response);
 };
+
+//---------------------------------------------/---------------------------------------------------------------//
 
 const create = async (req, res) => {
   const { name, email, password } = req.body;
