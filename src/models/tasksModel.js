@@ -37,7 +37,7 @@ const create = async (taskInfo) => {
   const db = await connection();
   const createdTask = await db.collection(collectionName)
     .insertOne({  userId, content, status, timeStamp })
-    .then((result) => ({ _id: result.insertedId, userId, content, status, timeStamp }))
+    .then((result) => ({ id: result.insertedId, userId, content, status, timeStamp }))
     .catch((err) => console.log(err));
   return createdTask;
 };

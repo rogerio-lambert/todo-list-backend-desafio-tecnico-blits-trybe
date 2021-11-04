@@ -7,16 +7,16 @@ const login = async (req, res) => {
   if (!email || !password) {
     return res.status(401).json({ message: 'All fields must be filled' });
   }
-  const { status, response } = await userService.login(email, password);
-  return res.status(status).json(response);
+  const token = await usersService.login(email, password);
+  return res.status(200).json({ token });
 };
 
 //---------------------------------------------/---------------------------------------------------------------//
 
 const create = async (req, res) => {
   const { name, email, password } = req.body;
-  const result = await usersService.create(name, email, password);
-  return res.status(result.status).json(result.response);
+  const user = await usersService.create(name, email, password);
+  return res.status(201).json(user);
 };
 
 module.exports = { login, create };

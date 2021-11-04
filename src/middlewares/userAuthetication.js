@@ -1,4 +1,5 @@
 const { validateToken } = require('../services/usersService');
+
 module.exports = (req, res, next) => {
   const token = req.headers.authorization;
   if (!token) {
@@ -9,5 +10,6 @@ module.exports = (req, res, next) => {
    return res.status(401).json({ message: 'jwt malformed' });
   }
   req.user = dataToken.user;
+  console.log (dataToken.user);
   next();
 };
