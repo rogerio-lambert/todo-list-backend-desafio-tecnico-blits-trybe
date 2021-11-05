@@ -2,7 +2,7 @@ const express = require('express');
 
 const userAuthentication = require('../middlewares/userAuthetication');
 
-const { create, update, remove, getAll } = require('../controllers/usersController');
+const { create, update, remove, getAll } = require('../controllers/tasksController');
 
 const router = express.Router();
 
@@ -10,8 +10,8 @@ router.get('/', userAuthentication, getAll);
 
 router.post('/', userAuthentication, create)
 
-router.put('/', userAuthentication, update)
+router.put('/:id', userAuthentication, update)
 
-router.delete('/', userAuthentication, remove)
+router.delete('/:id', userAuthentication, remove)
 
 module.exports = router;

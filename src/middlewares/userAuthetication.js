@@ -1,4 +1,5 @@
 const { validateToken } = require('../services/usersService');
+
 module.exports = (req, res, next) => {
   const token = req.headers.authorization;
   if (!token) {

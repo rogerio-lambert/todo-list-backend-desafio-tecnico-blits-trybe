@@ -41,14 +41,14 @@ const remove = async (userId, taskId) => {
   if (!check) {
     return { error };
   }
-  await tasksModel.remove({ taskId });
+  await tasksModel.remove(taskId);
   return { check: true };
 };
 
 //---------------------------------------------/---------------------------------------------------------------//
 
-const getAll = async () => {
-  const tasks = await tasksModel.getAll();
+const getAll = async (userId) => {
+  const tasks = await tasksModel.getAll(userId);
   return { tasks };
 };
 
