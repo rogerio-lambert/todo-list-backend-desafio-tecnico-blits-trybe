@@ -7,8 +7,8 @@ const login = async (req, res) => {
   if (!email || !password) {
     return res.status(401).json({ message: 'All fields must be filled' });
   }
-  const token = await usersService.login(email, password);
-  return res.status(200).json({ token });
+  const { token, user, error } = await usersService.login(email, password);
+  return res.status(200).json({ token, user, error });
 };
 
 //---------------------------------------------/---------------------------------------------------------------//

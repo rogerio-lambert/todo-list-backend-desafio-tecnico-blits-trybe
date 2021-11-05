@@ -6,9 +6,19 @@ const collectionName = 'tasks';
 
 //---------------------------------------------/---------------------------------------------------------------//
 
-const getAll = async () => {
+const renameIdKey = (tasks) => {
+  return tasks.map((task) => {
+    const { _id, userId, content, status, timeStamp } = task;
+    return { id: _id, userId, content, status, timeStamp }
+  })
+};
+
+//---------------------------------------------/---------------------------------------------------------------//
+
+const getAll = async (userId) => {
   const tasks = await connection()
-    .then((db) => db.collection(collectionName).find().toArray())
+    .then((db) => db.collection(collectionName).find({ userId: { $eq: userId } }).toArray())
+    .then((tasks) => renameIdKey(tasks))
     .catch((err) => console.log(err));
   return tasks;
 };
@@ -46,10 +56,11 @@ const create = async (taskInfo) => {
 
 const update = async (taskInfo) => {
   const { taskId: id,  content, status } = taskInfo;
-  await connection()
-    .then((db) => db.collection(collectionName)
-      .updateOne({ _id: ObjectId(id) }, { $set: { content, status } }))
+  const db = await connection();
+  await db.collection(collectionName).updateOne({ _id: ObjectId(id) }, { $set: { content, status } })
     .catch((err) => console.log(err));
+  return await findById(id)
+    .then((task) => renameIdKey([task]));
 };
 
 //---------------------------------------------/---------------------------------------------------------------//

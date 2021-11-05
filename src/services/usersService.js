@@ -58,7 +58,8 @@ const login = async (email, passwordLogin) => {
     return { error };
   }
   const token = createToken(user);
-  return { token }
+  const { name, id } = user
+  return { token, user: { email, name, id } };
 };
 
 //---------------------------------------------/---------------------------------------------------------------//

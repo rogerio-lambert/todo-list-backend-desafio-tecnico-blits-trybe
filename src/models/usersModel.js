@@ -6,7 +6,7 @@ const collectionName = 'users';
 const findByEmail = async (email) => {
   const user = await connection()
     .then((db) => db.collection(collectionName).findOne({ email: { $eq: email } }))
-    .then((result) => ({ id: result._id, name: result.name, email }))
+    .then((result) => ({ id: result._id, name: result.name, email, password: result.password }))
     .catch((err) => console.log(err));
   return user;
 };
